@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', e => {
 
-settingsUrl = 'http://localhost:3000/settings/'
-addressesUrl = 'http://localhost:300/locations/'
+const settingsUrl = 'http://localhost:3000/settings/'
+const addressesUrl = 'http://localhost:3000/locations/'
 
 const getSettings = () => {
      fetch(settingsUrl)
@@ -24,33 +24,33 @@ const renderSetting = setting => {
      // settingImg.src = setting.image_url
      settingP.dataset.id = setting.id
      settingP.textContent = setting.name
-     settingP.addEventListener('click', onSettingClick)
+     // settingP.addEventListener('click', onSettingClick)
      settingsContainer.append(settingP)
      // append settingImg once we have image container
 }
 
-function onSettingClick(e){
-     
-     getAddresses(e.target.dataset.id)
-}
+// function onSettingClick(e){
+//      getAddresses(e.target.dataset.id)
+// }
 
 const getAddresses = () => {
      fetch(addressesUrl)
      .then(res => res.json())
      .then(data => {
-          renderAddresses(data)
+          console.log(data)
+          // renderAddresses(data)
      })
 }
 
-const renderAddresses = data => {
-     for(let address of data) {
-          renderAddress(address)
-     }
-}
+// const renderAddresses = data => {
+//      for(let address of data) {
+//           renderAddress(address)
+//      }
+// }
 
-const renderAddress = address => {
-     
-}
+// const renderAddress = address => {
+//      console.log(address)
+// }
 
 
 
