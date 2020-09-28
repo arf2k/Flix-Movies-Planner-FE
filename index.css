@@ -1,0 +1,24 @@
+<style>
+.center-container-index {
+    display: flex;
+    flex-wrap:  wrap;
+    background: #AA2D0E;
+    width: 50%;
+    margin: 0 auto;
+    justify-content: space-around;
+}
+
+.address {
+    background: #ECDCB0;
+    border: 1px solid black;
+    margin: 20px;
+    width: 200px;
+    text-align: center;
+    box-shadow: 5px 10px grey;
+}
+
+.address-img {
+    width: 150px;
+    height: auto;
+}
+</style>
