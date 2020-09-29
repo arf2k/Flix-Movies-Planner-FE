@@ -2,6 +2,8 @@ document.addEventListener('DOMContentLoaded', e => {
 
 const settingsUrl = 'http://localhost:3000/settings/'
 const addressesUrl = 'http://localhost:3000/locations/'
+const settingsAddressUrl = 'http://localhost:3000/settings?options='
+const locationsSettingsURL = 'http://localhost:3000/locations?settings='
 
 const getSettings = () => {
      fetch(settingsUrl)
@@ -17,45 +19,58 @@ const renderSettings = data => {
      }
 }
 
+
 const renderSetting = setting => {
      const settingsContainer = document.querySelector("#settings-container")
-     const settingP = document.createElement('p')
-     const settingImg = document.createElement('img')
+     const settingBtn = document.createElement('btn')
+     settingBtn.innerHTML = `
+     <button class="btn ${setting.name}">${setting.name}</button><br>
+     `
+     // const settingImg = document.createElement('img')
      // settingImg.src = setting.image_url
-     settingP.dataset.id = setting.id
-     settingP.textContent = setting.name
-     settingP.addEventListener('click', onSettingClick)
-     settingsContainer.append(settingP)
+     settingBtn.dataset.id = setting.id
+     settingBtn.addEventListener('click', onSettingClick)
+     settingsContainer.append(settingBtn)
      // append settingImg once we have image container
 }
 
-let address = []
+/* <button class="btn park">Parks</button><br>
+<button class="btn bars">Bars</button><br>
+<button class="btn restaurants">Restaurants</button><br>
+<button class="btn theaters">Theaters</button><br>
+<button class="btn hospitals">Hospitals</button> */
+
 
 function onSettingClick(e){
-     getAllAddresses(e.target.dataset.id)
-     renderAddress(e.target.address.category_id)
+     fetchAddressByType(e.target.dataset.id)
+     // removeContainer()
+     renderAllAddress(e.target.dataset.id)
+
 }
 
-const getAllAddresses = () => {
-     fetch(addressesUrl)
+// const getAllAddresses = () => {
+//      fetch(addressesUrl)
+//      .then(res => res.json())
+//      .then(data => {
+//           renderAllAddresses(data)
+//      })
+// }
+
+function fetchAddressByType(id){
+     fetch(settingsAddressUrl + id)
      .then(res => res.json())
      .then(data => {
-          renderAllAddresses(data)
+          console.log(data)
+          renderAllAddress(data)
      })
 }
 
-// function fetchAddressByType(){
-//      fetch(addressesUrl)
-//      .then(res => res.json())
-//      .then(data =)
+
+// const renderAllAddresses = data => {
+//      for(let address of data) {
+//           renderAllAddress(address)
+//      }
 // }
-
-
-const renderAllAddresses = data => {
-     for(let address of data) {
-          renderAllAddress(address)
-     }
-}
 
 const renderAllAddress = address => {
      const addressesContainer = document.querySelector("#addresses-container")
