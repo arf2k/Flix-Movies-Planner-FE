@@ -2,7 +2,6 @@ document.addEventListener('DOMContentLoaded', e => {
 
 const settingsUrl = 'http://localhost:3000/settings/'
 const addressesUrl = 'http://localhost:3000/locations/'
-
 const locationsSettingsUrl = 'http://localhost:3000/locations?setting='
 
 const getSettings = () => {
@@ -35,19 +34,15 @@ const renderSetting = setting => {
      // append settingImg once we have image container
 }
 
-/* <button class="btn park">Parks</button><br>
-<button class="btn bars">Bars</button><br>
-<button class="btn restaurants">Restaurants</button><br>
-<button class="btn theaters">Theaters</button><br>
-<button class="btn hospitals">Hospitals</button> */
 
 
 function onSettingClick(e){
      fetchAddressByType(e.target.dataset.id)
-     // removeContainer()
      renderAllAddress(e.target.dataset.id)
+     addressesContainer.innerHTML = ""
 
 }
+
 
 // const getAllAddresses = () => {
 //      fetch(addressesUrl)
@@ -61,7 +56,6 @@ function fetchAddressByType(id){
      fetch(locationsSettingsUrl + id)
      .then(res => res.json())
      .then(data => {
-          console.log(data)
           renderAllAddress(data)
      })
 }
@@ -72,10 +66,11 @@ function fetchAddressByType(id){
 //           renderAllAddress(address)
 //      }
 // }
+const addressesContainer = document.querySelector("#addresses-container")
+
 
 function renderAllAddress(addresses) {
      for(let address of addresses) {
-     const addressesContainer = document.querySelector("#addresses-container")
      let addressImgCard = document.createElement('div')
      addressImgCard.innerHTML =`
      <div class="row">
@@ -95,12 +90,20 @@ function renderAllAddress(addresses) {
         </div>
     </div>
     `
+    addressImgCard.dataset.id = address.id 
+    addressImgCard.addEventListener("click", onLocationClick)
      addressesContainer.append(addressImgCard)
-           
-    //  console.log(address.category_id)
-}
+
+     }
 }
 
+function onLocationClick(e){
+addLocationToChoices(e.target.dataset.id)
+}
+
+function addLocationToChoices(id){
+
+}
 
 
 
@@ -123,16 +126,16 @@ function renderChosenScenes(scenes){
   const sceneContainer = document.querySelector('#scene-container')
   console.log(scenes)
   for(let scene of scenes){
-     const addLi = document.createElement('li')
-     addLi.textContent = scene 
-     sceneContainer.append(addLi) 
+     const addUl = document.createElement('ul')
+     addUl.textContent = scene 
+     sceneContainer.append(addUl) 
   }
 }
   
 
 
 getSettings()
-getAllAddresses()
+// getAllAddresses()
 fetchAddressByType()
 
 })
