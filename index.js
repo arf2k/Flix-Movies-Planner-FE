@@ -2,8 +2,8 @@ document.addEventListener('DOMContentLoaded', e => {
 
 const settingsUrl = 'http://localhost:3000/settings/'
 const addressesUrl = 'http://localhost:3000/locations/'
-const settingsAddressUrl = 'http://localhost:3000/settings?options='
-const locationsSettingsURL = 'http://localhost:3000/locations?settings='
+
+const locationsSettingsUrl = 'http://localhost:3000/locations?setting='
 
 const getSettings = () => {
      fetch(settingsUrl)
@@ -22,15 +22,16 @@ const renderSettings = data => {
 
 const renderSetting = setting => {
      const settingsContainer = document.querySelector("#settings-container")
-     const settingBtn = document.createElement('btn')
-     settingBtn.innerHTML = `
-     <button class="btn ${setting.name}">${setting.name}</button><br>
-     `
+     const settingP = document.createElement('p')
+     // settingBtn.innerHTML = `
+     // <button class="btn ${setting.name}">${setting.name}</button><br>
+     // `
      // const settingImg = document.createElement('img')
      // settingImg.src = setting.image_url
-     settingBtn.dataset.id = setting.id
-     settingBtn.addEventListener('click', onSettingClick)
-     settingsContainer.append(settingBtn)
+     settingP.textContent = setting.name
+     settingP.dataset.id = setting.id
+     settingP.addEventListener('click', onSettingClick)
+     settingsContainer.append(settingP)
      // append settingImg once we have image container
 }
 
@@ -57,7 +58,7 @@ function onSettingClick(e){
 // }
 
 function fetchAddressByType(id){
-     fetch(settingsAddressUrl + id)
+     fetch(locationsSettingsUrl + id)
      .then(res => res.json())
      .then(data => {
           console.log(data)
@@ -72,7 +73,8 @@ function fetchAddressByType(id){
 //      }
 // }
 
-const renderAllAddress = address => {
+function renderAllAddress(addresses) {
+     for(let address of addresses) {
      const addressesContainer = document.querySelector("#addresses-container")
      let addressImgCard = document.createElement('div')
      addressImgCard.innerHTML =`
@@ -96,6 +98,7 @@ const renderAllAddress = address => {
      addressesContainer.append(addressImgCard)
            
     //  console.log(address.category_id)
+}
 }
 
 
