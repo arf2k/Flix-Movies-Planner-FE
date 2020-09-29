@@ -62,18 +62,25 @@ const renderAllAddress = address => {
      let addressImgCard = document.createElement('div')
      addressImgCard.innerHTML =`
      <div class="row">
-     <div class="col-md-4"> 
-     <div class="thumbnail">
-           <img src="${address.image_url}" alt="Location" style="width:100%">
-           <div class="caption">
-             <p>Location: ${address.name}</p>
-           </div>
-          </div>
-          </div>
-           `
+        <div class="col-md-4"> 
+            <div class="thumbnail">
+                <img src="${address.image_url}" alt="Location" style="width:100%">
+                    <div class="caption">
+                        <b><p>${address.name}</p></b>
+                    </div>
+            </div>
+        </div>
+        <div>
+            <p>Borough: ${address.borough}</p>
+            <p>Address: ${address.address}</p>
+            <p>Contact Name: ${address.contact_name}</p>
+            <p>Phone: ${address.contact_phone}</p>
+        </div>
+    </div>
+    `
      addressesContainer.append(addressImgCard)
            
-     console.log(address.category_id)
+    //  console.log(address.category_id)
 }
 
 
