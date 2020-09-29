@@ -1,4 +1,8 @@
 <style>
+
+.col-sm-3{
+  overflow:hidden;
+}
 .center-container-index {
     display: flex;
     flex-wrap:  wrap;

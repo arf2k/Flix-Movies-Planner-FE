@@ -4,6 +4,8 @@ const settingsUrl = 'http://localhost:3000/settings/'
 const addressesUrl = 'http://localhost:3000/locations/'
 const locationsSettingsUrl = 'http://localhost:3000/locations?setting='
 
+
+
 const getSettings = () => {
      fetch(settingsUrl)
      .then(res => res.json())
@@ -90,28 +92,47 @@ function renderAllAddress(addresses) {
         </div>
     </div>
     `
-    addressImgCard.dataset.id = address.id 
-    addressImgCard.addEventListener("click", onLocationClick)
+    const locButton = document.createElement('btn')
+    locButton.textContent = "Add Location"
+    locButton.dataset.id = address.id
+   locButton.addEventListener("click", onLocationClick)
+   addressImgCard.append(locButton)
      addressesContainer.append(addressImgCard)
 
      }
 }
 
 function onLocationClick(e){
-addLocationToChoices(e.target.dataset.id)
+     fetchSingleLocation(e.target.dataset.id)
+     console.log(e.target.dataset.id)
+renderLocationChoices(e.target.dataset.id)
 }
 
-function addLocationToChoices(id){
+function fetchSingleLocation(id){
+     fetch(addressesUrl + id)
+     .then(resp => resp.json())
+     .then(address => {
+          console.log(address)
+          renderLocationChoices(address)
+     })
+}
 
+// const addressSelectionContainer= document.querySelector('#scene-container')
+function renderLocationChoices(address) {
+   const locUl = document.createElement('ul')
+   locUl.textContent = address.name 
+   sceneContainer.append(locUl) 
 }
 
 
 
-const checkBoxForm = document.querySelector("#checkboxform")
-const formCheck = document.querySelector('.form-check-label')
+
+const checkBoxForm = document.querySelector('#sceneCheckForm')
 checkBoxForm.addEventListener('submit', e => {
      e.preventDefault()
+    console.log("clicked")
      let inputs = checkBoxForm.children
+     console.log(inputs)
      let array = [] 
      for (let i = 0; i <inputs.length; i++){
           if(inputs[i].checked)
@@ -121,10 +142,8 @@ checkBoxForm.addEventListener('submit', e => {
 })
 
 
-    
+const sceneContainer = document.querySelector('#scene-container')
 function renderChosenScenes(scenes){
-  const sceneContainer = document.querySelector('#scene-container')
-  console.log(scenes)
   for(let scene of scenes){
      const addUl = document.createElement('ul')
      addUl.textContent = scene 
@@ -137,6 +156,6 @@ function renderChosenScenes(scenes){
 getSettings()
 // getAllAddresses()
 fetchAddressByType()
-
+fetchSingleLocation()
 })
 
