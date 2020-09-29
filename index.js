@@ -24,33 +24,58 @@ const renderSetting = setting => {
      // settingImg.src = setting.image_url
      settingP.dataset.id = setting.id
      settingP.textContent = setting.name
-     // settingP.addEventListener('click', onSettingClick)
+     settingP.addEventListener('click', onSettingClick)
      settingsContainer.append(settingP)
      // append settingImg once we have image container
 }
 
-// function onSettingClick(e){
-//      getAddresses(e.target.dataset.id)
-// }
+let address = []
 
-const getAddresses = () => {
+function onSettingClick(e){
+     getAllAddresses(e.target.dataset.id)
+     renderAddress(e.target.address.category_id)
+}
+
+const getAllAddresses = () => {
      fetch(addressesUrl)
      .then(res => res.json())
      .then(data => {
-          console.log(data)
-          // renderAddresses(data)
+          renderAllAddresses(data)
      })
 }
 
-// const renderAddresses = data => {
-//      for(let address of data) {
-//           renderAddress(address)
-//      }
+// function fetchAddressByType(){
+//      fetch(addressesUrl)
+//      .then(res => res.json())
+//      .then(data =)
 // }
 
-// const renderAddress = address => {
-//      console.log(address)
-// }
+
+const renderAllAddresses = data => {
+     for(let address of data) {
+          renderAllAddress(address)
+     }
+}
+
+const renderAllAddress = address => {
+     const addressesContainer = document.querySelector("#addresses-container")
+     let addressImgCard = document.createElement('div')
+     addressImgCard.innerHTML =`
+     <div class="row">
+     <div class="col-md-4"> 
+     <div class="thumbnail">
+           <img src="${address.image_url}" alt="Location" style="width:100%">
+           <div class="caption">
+             <p>Location: ${address.name}</p>
+           </div>
+          </div>
+          </div>
+           `
+     addressesContainer.append(addressImgCard)
+           
+     console.log(address.category_id)
+}
+
 
 
 
@@ -82,8 +107,8 @@ function renderChosenScenes(scenes){
 
 
 getSettings()
-getAddresses()
-
+getAllAddresses()
+fetchAddressByType()
 
 })
 
