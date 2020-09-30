@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', e => {
 const settingsUrl = 'http://localhost:3000/settings/'
 const addressesUrl = 'http://localhost:3000/locations/'
 const locationsSettingsUrl = 'http://localhost:3000/locations?setting='
-
+const shootsUrl = "http://localhost:3000/shoots/"
 
 
 const getSettings = () => {
@@ -156,55 +156,90 @@ function renderChosenScenes(scenes){
 
 const sceneForm = document.querySelector(".scene-form")
 
-function eventHandler(){
-document.addEventListener('click', e => {
-     if(e.target.textContent === "Add Location")
-     let locBtn = e.target.closest('btn')
-    let addressId = document.querySelector('.address-button').dataset.addressId
-     let locationBox = document.querySelector("#add-location")
-     sceneForm.dataset.addressId = addressId 
-} else if(e.target.matches(".setting-button")){
-     let settingId = document.querySelector(".setting-button").dataset.settingId
-     let settingBox = document.querySelector("#add-setting")
+// function eventHandler(){
+// document.addEventListener('click', e => {
+//      if(e.target.textContent === "Add Location")
+//      let locBtn = e.target.closest('btn')
+//     let addressId = document.querySelector('.address-button').dataset.addressId
+//      let locationBox = document.querySelector("#add-location")
+//      sceneForm.dataset.addressId = addressId 
+// } else if(e.target.matches(".setting-button")){
+//      let settingId = document.querySelector(".setting-button").dataset.settingId
+//      let settingBox = document.querySelector("#add-setting")
 
-} else if(e.target.matches("#scene-submit-button")){
-     e.preventDefault()
-     const sceneForm = document.querySelector(".scene-form")
-     let sceneName = sceneNameBox.value  
-     let settingName = settingBox.value 
-     let locationName = locationBox.value 
+// } else if(e.target.matches("#scene-submit-button")){
+//      e.preventDefault()
+//      const sceneForm = document.querySelector(".scene-form")
+//      let sceneName = sceneNameBox.value  
+//      let settingName = settingBox.value 
+//      let locationName = locationBox.value 
 
-     const sceneObj = {
-          sceneName = name 
-          settingId = setting_id 
-          addressId = location_id 
+//      const sceneObj = {
+//           sceneName = name 
+//           settingId = setting_id 
+//           addressId = location_id 
 
-     }
+//      }
 
-     let options = {
-          method: "POST",
-          headers:  {
-                "content-type": "application/json",
-               "accept": "application/json"
-        },
-        body: JSON.stringify(sceneObj)
+//      let options = {
+//           method: "POST",
+//           headers:  {
+//                 "content-type": "application/json",
+//                "accept": "application/json"
+//         },
+//         body: JSON.stringify(sceneObj)
           
-     }
+//      }
 
-     fetch(sceneUrl/create + options)
-     .then(res => res.json())
-     .then(console.log)
+//      fetch(sceneUrl/create + options)
+//      .then(res => res.json())
+//      .then(console.log)
 
 
+// }
+// }
+
+// })
+
+
+
+function submitHandler(){
+     sceneForm.addEventListener('submit', e => {
+          e.preventDefault()
+          const form = e.target
+
+          const shootObj = buildShootFromForm(form)
+
+          const options = {
+               method: "POST",
+               headers: {
+                 "content-type": "application/json",
+                 "accept": "application/json"
+               },
+               body: JSON.stringify(shootObj)
+             }
+
+             fetch(shootsUrl, options)
+             .then(response => response.json())
+             .then(movie => {
+               // renderMovie(movie)
+               sceneForm.reset()
+             })
+       
+           })
+         }
+
+
+     })
 }
-}
-
-})
 
 
 
 
-}
+
+
+
+
 
 
 

@@ -55,13 +55,13 @@
      <br>
      <div class= "container" id='scene-container'>
       <div class="row">
-        <div class="col-9">
-            <div margin: auto class="d-flex justify-content-center" style="background-color: #d4edda; font-family: 'Montserrat', sans-serif;">
+        <div class="col-12">
+            <div margin: auto class="d-flex justify-content-center" style="background-color: white; font-family: 'Montserrat', sans-serif;">
               <p margin: auto contenteditable="true"><h1>Plan Your Shoot</h1></p> 
             </div>
         </div>
       </div>
-      <form class= "scene-form">
+      <form class= "shoot-form">
       <div class="form-row">
         <div class="col-2" id='add-scene'>
           <input type="scene" class="form-control" id="scene-name" placeholder="Scene Name">
@@ -69,26 +69,39 @@
         <div class="col-2" id='add-setting'>
           <input type="setting" class="form-control" id="setting-name" placeholder="Setting Name">
         </div>
-        <div class="col-4" id='add-location'>
+        <div class="col-2" id='add-location'>
           <input type="location" class="form-control" id="location-address" placeholder="Location Address">
         </div>
-        <div class="col-4" id='submit-form'>
-          <button id="scene-submit-button" type="submit" class="btn btn-primary">Create Scene</button>
+        <div class="col-2" id='add-title'>
+          <input type="title" class="form-control" id="title-of-scene" placeholder="Shoot Title">
+        </div>
+        <div class="col2" id='add-date'>
+          <input type='date' class='form-control' id='date-of-scene' placeholder='Scene Date'>
+        </div>
+        <div class="col-1" id='submit-form'>
+            <button type="submit" class="btn btn-primary">Create</button>
         </div>
         </div>
       </div>
     </form>
 
-  <div class="container" id="confirmed-scene">
+  <br><br><br>
+
+
+  <div class="container" id="confirmed-shoots">
     <div class="row">
-      <div class="col-8">
+      <div class="col-12">
         <div margin: auto class="d-flex justify-content-center">
-          <p></p>
+          <p margin: auto contenteditable="true"><h1>Confirmed Scenes</h1></p> 
         </div>
+      </div>
+      <div class="row">
+        <div class="col"
       </div>
     </div>
   </div>
 
+  <br><br><br>
 
 <div class="container-fluid">
      <div class="row">
@@ -96,7 +109,9 @@
                <h1>Settings</h1>
           </div>
           <div class="col-lg-6" style="background-color:white;" id="addresses-container">
+            <div margin: auto class="d-flex justify-content-center">
                <h1>Locations</h1>
+              </div>
                <div class="slideshow">
                     <div class="mySlides">
                       <img src="https://wallpapercave.com/wp/wp1990854.jpg" style="width:100%">
