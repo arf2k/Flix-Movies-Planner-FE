@@ -222,7 +222,7 @@ function submitHandler(){
              fetch(shootsUrl, options)
              .then(response => response.json())
              .then(movie => {
-               // renderMovie(movie)
+               console.log(movie)
                sceneForm.reset()
              })
        
@@ -231,6 +231,29 @@ function submitHandler(){
 
 
      })
+const locationBox = document.querySelector("#add-location")
+const settingBox = document.querySelector("#add-setting")
+const shootTitleFormBox = document.querySelector("#title-of-scene")
+const shootDateFormBox = document.querySelector("#date-of-scene")
+
+function buildShootFromForm(form){
+     
+     let title = shootTitleFormBox.value 
+     let date = shootDateFormBox.value
+     
+     let sceneName = sceneNameBox.value 
+     let setting_id = document.querySelector(".setting-button").dataset.settingId
+     let location_id = document.querySelector('.address-button').dataset.addressId
+     
+     
+     const scenesObj = {
+          name: sceneName,  
+          setting_id: setting_id,
+          location_id: location_id
+     }
+
+     
+     
 }
 
 
@@ -249,7 +272,7 @@ function submitHandler(){
 
 
 
-getSettings()
+     getSettings()
 // getAllAddresses()
 fetchAddressByType()
 fetchSingleLocation()
