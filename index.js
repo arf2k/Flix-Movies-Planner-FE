@@ -42,7 +42,6 @@ function onSettingClick(e){
      fetchAddressByType(e.target.dataset.id)
      renderAllAddress(e.target.dataset.id)
      addressesContainer.innerHTML = ""
-
 }
 
 
@@ -70,7 +69,6 @@ function fetchAddressByType(id){
 // }
 const addressesContainer = document.querySelector("#addresses-container")
 
-
 function renderAllAddress(addresses) {
      for(let address of addresses) {
      let addressImgCard = document.createElement('div')
@@ -92,11 +90,11 @@ function renderAllAddress(addresses) {
         </div>
     </div>
     `
-    const locButton = document.createElement('btn')
-    locButton.textContent = "Add Location"
-    locButton.dataset.id = address.id
-   locButton.addEventListener("click", onLocationClick)
-   addressImgCard.append(locButton)
+     const locButton = document.createElement('btn')
+     locButton.textContent = "Add Location"
+     locButton.dataset.id = address.id
+     locButton.addEventListener("click", onLocationClick)
+     addressImgCard.append(locButton)
      addressesContainer.append(addressImgCard)
 
      }
@@ -105,7 +103,7 @@ function renderAllAddress(addresses) {
 function onLocationClick(e){
      fetchSingleLocation(e.target.dataset.id)
      console.log(e.target.dataset.id)
-renderLocationChoices(e.target.dataset.id)
+     renderLocationChoices(e.target.dataset.id)
 }
 
 function fetchSingleLocation(id){
@@ -117,15 +115,12 @@ function fetchSingleLocation(id){
      })
 }
 
-// const addressSelectionContainer= document.querySelector('#scene-container')
+const locationContainerForm = document.querySelector('#add-location')
 function renderLocationChoices(address) {
    const locUl = document.createElement('ul')
    locUl.textContent = address.name 
-   sceneContainer.append(locUl) 
+   locationContainerForm.append(locUl) 
 }
-
-
-
 
 const checkBoxForm = document.querySelector('#sceneCheckForm')
 checkBoxForm.addEventListener('submit', e => {
@@ -141,16 +136,33 @@ checkBoxForm.addEventListener('submit', e => {
      renderChosenScenes(array) 
 })
 
-
-const sceneContainer = document.querySelector('#scene-container')
+const sceneNameBox = document.querySelector("#scene-name")
+const sceneContainerForm = document.querySelector('#add-scene')
 function renderChosenScenes(scenes){
   for(let scene of scenes){
      const addUl = document.createElement('ul')
-     addUl.textContent = scene 
-     sceneContainer.append(addUl) 
+     let input = document.querySelector(".form-check-input").value
+     input = sceneNameBox.value
+     // sceneNameBox.value.append(input) 
   }
 }
   
+
+function createShoot(){
+     document.addEventListener('click', e => {
+
+
+     })
+
+
+
+
+}
+
+
+
+
+
 
 
 getSettings()
