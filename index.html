@@ -61,23 +61,30 @@
             </div>
         </div>
       </div>
-      <form>
+      <form class= "shoot-form">
       <div class="form-row">
-        <div class="col-3" id='add-scene'>
-          <input type="scene" class="form-control" id="scene-name" aria-describedby="sceneHelp" placeholder="Scene Name">
+        <div class="col-2" id='add-scene'>
+          <input type="scene" class="form-control" id="scene-name" placeholder="Scene Name">
         </div>
-        <div class="col-9" id='add-location'>
-          <input type="location" class="form-control" id="location-address" aria-describedby="sceneHelp" placeholder="Location Address">
+        <div class="col-2" id='add-setting'>
+          <input type="setting" class="form-control" id="setting-name" placeholder="Setting Name">
+        </div>
+        <div class="col-4" id='add-location'>
+          <input type="location" class="form-control" id="location-address" placeholder="Location Address">
+        </div>
+        <div class="col-4" id='submit-form'>
           <button type="submit" class="btn btn-primary">Create Scene</button>
-          </div>
         </div>
+        </div>
+      </div>
     </form>
-  </div>
 
   <div class="container" id="confirmed-scene">
     <div class="row">
       <div class="col-8">
-
+        <div margin: auto class="d-flex justify-content-center">
+          <p></p>
+        </div>
       </div>
     </div>
   </div>
@@ -88,7 +95,7 @@
           <div class="col-sm-3" style="background-color:rgb(255, 255, 255);" id="settings-container">
                <h1>Settings</h1>
           </div>
-          <div class="col-lg-6" style="background-color:pink;" id="addresses-container">
+          <div class="col-lg-6" style="background-color:white;" id="addresses-container">
                <h1>Locations</h1>
                <div class="slideshow">
                     <div class="mySlides">

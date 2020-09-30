@@ -23,15 +23,16 @@ const renderSettings = data => {
 
 const renderSetting = setting => {
      const settingsContainer = document.querySelector("#settings-container")
-     const settingP = document.createElement('p')
+     const settingButton = document.createElement('btn')
      // settingBtn.innerHTML = `
      // <button class="btn ${setting.name}">${setting.name}</button><br>
      // `
      // const settingImg = document.createElement('img')
      // settingImg.src = setting.image_url
-     settingP.textContent = setting.name
-     settingP.dataset.id = setting.id
-     settingP.addEventListener('click', onSettingClick)
+     settingButton.textContent = setting.name
+     settingButton.classList.add("setting-button")
+     settingButton.dataset.id = setting.id
+     settingButton.addEventListener('click', onSettingClick)
      settingsContainer.append(settingP)
      // append settingImg once we have image container
 }
@@ -90,9 +91,10 @@ function renderAllAddress(addresses) {
         </div>
     </div>
     `
-     const locButton = document.createElement('btn')
+     const locButton = document.createElement('button')
+     locButton.classList.add("address-button")
      locButton.textContent = "Add Location"
-     locButton.dataset.id = address.id
+     locButton.dataset.addressId = address.id
      locButton.addEventListener("click", onLocationClick)
      addressImgCard.append(locButton)
      addressesContainer.append(addressImgCard)
@@ -114,12 +116,13 @@ function fetchSingleLocation(id){
           renderLocationChoices(address)
      })
 }
-
+const locationFormInput = document.querySelector("#location-address")
 const locationContainerForm = document.querySelector('#add-location')
 function renderLocationChoices(address) {
-   const locUl = document.createElement('ul')
-   locUl.textContent = address.name 
-   locationContainerForm.append(locUl) 
+//    const locUl = document.createElement('ul')
+   const newInput = address.name
+   locationFormInput.value = newInput
+//    locationContainerForm.append(locUl) 
 }
 
 const checkBoxForm = document.querySelector('#sceneCheckForm')
@@ -142,14 +145,22 @@ function renderChosenScenes(scenes){
   for(let scene of scenes){
      const addUl = document.createElement('ul')
      let input = document.querySelector(".form-check-input").value
-     input = sceneNameBox.value
+     const newInput = scene
+    sceneNameBox.value = newInput
+
+
      // sceneNameBox.value.append(input) 
   }
 }
   
 
 function createShoot(){
-     document.addEventListener('click', e => {
+     document.addEventListener('submit', e => {
+          e.preventDefault()
+     const shootForm = document.querySelector(".shoot-form")
+     const locationId = document.querySelector('.address-button').dataset.addressId
+     
+
 
 
      })
@@ -157,7 +168,7 @@ function createShoot(){
 
 
 
-}
+
 
 
 
