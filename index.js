@@ -23,16 +23,16 @@ const renderSettings = data => {
 
 const renderSetting = setting => {
      const settingsContainer = document.querySelector("#settings-container")
-     const settingButton = document.createElement('btn')
+     const settingP = document.createElement('p')
      // settingBtn.innerHTML = `
      // <button class="btn ${setting.name}">${setting.name}</button><br>
      // `
      // const settingImg = document.createElement('img')
      // settingImg.src = setting.image_url
-     settingButton.textContent = setting.name
-     settingButton.classList.add("setting-button")
-     settingButton.dataset.id = setting.id
-     settingButton.addEventListener('click', onSettingClick)
+     settingP.textContent = setting.name
+     settingP.classList.add("setting-button")
+     settingP.dataset.id = setting.id
+     settingP.addEventListener('click', onSettingClick)
      settingsContainer.append(settingP)
      // append settingImg once we have image container
 }
@@ -154,19 +154,57 @@ function renderChosenScenes(scenes){
 }
   
 
-function createShoot(){
-     document.addEventListener('submit', e => {
-          e.preventDefault()
-     const shootForm = document.querySelector(".shoot-form")
-     const locationId = document.querySelector('.address-button').dataset.addressId
-     
+const sceneForm = document.querySelector(".scene-form")
+
+function eventHandler(){
+document.addEventListener('click', e => {
+     if(e.target.textContent === "Add Location")
+     let locBtn = e.target.closest('btn')
+    let addressId = document.querySelector('.address-button').dataset.addressId
+     let locationBox = document.querySelector("#add-location")
+     sceneForm.dataset.addressId = addressId 
+} else if(e.target.matches(".setting-button")){
+     let settingId = document.querySelector(".setting-button").dataset.settingId
+     let settingBox = document.querySelector("#add-setting")
+
+} else if(e.target.matches("#scene-submit-button")){
+     e.preventDefault()
+     const sceneForm = document.querySelector(".scene-form")
+     let sceneName = sceneNameBox.value  
+     let settingName = settingBox.value 
+     let locationName = locationBox.value 
+
+     const sceneObj = {
+          sceneName = name 
+          settingId = setting_id 
+          addressId = location_id 
+
+     }
+
+     let options = {
+          method: "POST",
+          headers:  {
+                "content-type": "application/json",
+               "accept": "application/json"
+        },
+        body: JSON.stringify(sceneObj)
+          
+     }
+
+     fetch(sceneUrl/create + options)
+     .then(res => res.json())
+     .then(console.log)
+
+
+}
+}
+
+})
 
 
 
-     })
 
-
-
+}
 
 
 
