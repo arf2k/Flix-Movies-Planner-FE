@@ -93,7 +93,7 @@ function renderAllAddress(addresses) {
     `
      const locButton = document.createElement('button')
      locButton.classList.add("address-button")
-     locButton.textContent = "Add Location"
+     locButton.textContent = `${address.address}`
      locButton.dataset.addressId = address.id
      addressImgCard.append(locButton)
      addressesContainer.append(addressImgCard)
@@ -120,19 +120,18 @@ function renderLocationChoices(address) {
 //    locationContainerForm.append(locUl) 
 }
 
-const checkBoxForm = document.querySelector('#sceneCheckForm')
-checkBoxForm.addEventListener('submit', e => {
-     e.preventDefault()
-    console.log("clicked")
-     let inputs = checkBoxForm.children
-     console.log(inputs)
-     let array = [] 
-     for (let i = 0; i <inputs.length; i++){
-          if(inputs[i].checked)
-          array.push(inputs[i].value)
-     }  
-     renderChosenScenes(array) 
-})
+// const checkBoxForm = document.querySelector('#form-pick')
+// checkBoxForm.addEventListener('submit', e => {
+//      e.preventDefault()
+//      let inputs = checkBoxForm.children
+//      console.log(inputs)
+//      let array = [] 
+//      for (let i = 0; i <inputs.length; i++){
+//           if(inputs[i].checked)
+//           array.push(inputs[i].value)
+//      }  
+//      renderChosenScenes(array) 
+// })
 
 const sceneNameBox = document.querySelector("#scene-name")
 const sceneContainerForm = document.querySelector('#add-scene')
@@ -174,7 +173,7 @@ function submitHandler(){
           const form = e.target
 
           const shootObj = buildShootFromForm(form)
-          debugger;
+         
           const options = {
                method: "POST",
                headers: {
@@ -233,14 +232,15 @@ function buildShootFromForm(form){
 const addFormButton = document.querySelector('#add-scenes-button')
 
 addFormButton.addEventListener("click", e => {
-     console.log("click")
+     createMoreScenesForm(e.target)
 
 })
 
 
 function createMoreScenesForm(){
-     let newFormFieldsInput = document.createElement("input")
+     let newFormFieldsInput = document.createElement("form")
      newFormFieldsInput.innerHTML = `
+     <div class="form-row">
      <div class="col-4" id='add-scene'>
           <input type="scene" class="form-control" id="scene-name" placeholder="Scene Name">
         </div>
@@ -250,9 +250,12 @@ function createMoreScenesForm(){
         <div class="col-4" id='add-location'>
           <input type="location" class="form-control" name="address" id="location-address" placeholder="Location Address">
         </div>
+        </div>
         `
         shootForm.append(newFormFieldsInput)
 }
+
+
 
 
 
