@@ -4,7 +4,7 @@ const settingsUrl = 'http://localhost:3000/settings/'
 const addressesUrl = 'http://localhost:3000/locations/'
 const locationsSettingsUrl = 'http://localhost:3000/locations?setting='
 const shootsUrl = "http://localhost:3000/shoots/"
-
+const scenesUrl = "http://localhost:3000/scenes/"
 
 const getSettings = () => {
      fetch(settingsUrl)
@@ -186,9 +186,11 @@ function submitHandler(){
 
              fetch(shootsUrl, options)
              .then(response => response.json())
-             .then(shoot => {
-               console.log(shoot)
-               renderNewShoot(shoot)
+             .then(shoots => {
+               console.log(shoots)
+               renderNewShoot(shoots)
+               fetchNewScene(shoots)
+             
                shootForm.remove()
           
           })
@@ -196,25 +198,34 @@ function submitHandler(){
 }
 
 const confirmedScenesBox = document.querySelector("#confirmed-scenes")
-function renderNewShoot(shoot){
+function renderNewShoot(shoots){
      let newAddressDiv = document.createElement('div')
      newAddressDiv.innerHTML = `
-     <h3> ${shoot.title}</h3>
-     <p>Shoot Date: ${shoot.date}</p>
+     <h3> ${shoots.data.attributes.title}</h3>
+     <p>Shoot Date: ${shoots.data.attributes.date}</p>
      `
-     // renderScene(shoot.scenes)
+     let sceneId = shoots.data.relationships.scenes.data[0].id
+     fetchNewScene(sceneId)
      confirmedScenesBox.append(newAddressDiv)
-}
+     }
 
+function fetchNewScene(sceneId){
+     fetch(scenesUrl + sceneId)
+     .then(resp => resp.json())
+     .then(data => {
+          renderScene(data)
+     })
+}
      
-// function renderScene(scene){
-//      let newSceneDiv = document.createElement('div')
-//      newSceneDiv.innerHTML = `
-//      <h3> ${scene.name} </h3>
-//      <p> ${scene.location}</p>
-//      `
-//      confirmedScenesBox.append(newSceneDiv)
-// }
+
+function renderScene(scene){
+     let newSceneDiv = document.createElement('div')
+     newSceneDiv.innerHTML = `
+     <h3> ${scene.name} </h3>
+     <p> ${scene.location}</p>
+     `
+     confirmedScenesBox.append(newSceneDiv)
+}
 
 
 const locationBox = document.querySelector("#add-location")
