@@ -17,29 +17,23 @@
      <div class= "container" id='shoot-container'>
       <div class="row">
         <div class="col-12">
-            <div margin: auto class="d-flex justify-content-center" style="background-color: white; font-family: 'Montserrat', sans-serif;">
-              <p margin: auto contenteditable="true"><h1>Plan Your Shoot</h1></p> 
-            </div>
+          <div margin: auto class="d-flex justify-content-center" style="background-color: f8f9fa; font-family: 'Montserrat', sans-serif;">
+            <p margin: auto contenteditable="true"><h1>Plan Your Shoot</h1></p>
         </div>
       </div>
+      
+      
       <form class= "shoot-form">
       <div class="form-row">
-        <div class="col-2" id='add-title'>
+        <div class="col-6" id='add-title'>
           <input type="title" class="form-control" id="title-of-scene" placeholder="Shoot Title">
         </div>
-        <div class="col-2" id='add-date'>
+        <div class="col-6" id='add-date'>
           <input type='date' class='form-control' id='date-of-scene' placeholder='Scene Date'>
         </div>
-        <div class="col-2" id='add-scene'>
-          <input type="scene" class="form-control" id="scene-name" placeholder="Scene Name">
-        </div>
-        <div class="col-2" id='add-setting'>
-          <input type="setting" class="form-control" name="setting" id="setting-name" placeholder="Setting Name">
-        </div>
-        <div class="col-2" id='add-location'>
-          <input type="location" class="form-control" name="address" id="location-address" placeholder="Location Address">
-        </div>
-        <div class="col-2" id='submit-form'>
+      </div>
+      <div class="form-row" id="last-row">
+        <div class="col-4" id='submit-form'>
           <button type="submit" class="btn btn-primary">Create Shoot</button>
       </div>
         </div>
@@ -57,19 +51,20 @@
         </div>
       </div>
       <div class="row">
-        <div class="col"
+        <div class="col">
     </div>
   </div>
+  <button type="submit" id="add-scenes-button" class="btn btn-primary">Add Scene</button>
 </div>
   <br><br><br>
 
 <div class="container-fluid">
      <div class="row">
-          <div class="col-sm-3" style="background-color:rgb(255, 255, 255);" id="settings-container">
-               <h1>Settings</h1>
-          </div>
-          <div class="col-lg-6" style="background-color:white;" id="addresses-container">
-            <div margin: auto class="d-flex justify-content-center">
+      <div class="col-sm-3" style="background-color:#f8f9fa;" id="settings-container">
+        <h1>Settings</h1>
+   </div>
+   <div class="col-lg-6" style="background-color:#f8f9fa;" id="addresses-container">
+     <div margin: auto class="d-flex justify-content-center">
                <h1>Locations</h1>
               </div>
                <div class="slideshow">
@@ -120,7 +115,7 @@
                     <br>
                   </div>   
                </div>
-               <div class="col-sm-3" style="background-color:rgb(255, 255, 255);" id="scenes-container">
+               <div class="col-sm-3" style="background-color:#f8f9fa;" id="scenes-container">
                  <h1>Scenes</h1>
                  <div class="form-group" id="form-pick">
                     <div class="form-check" id="scene-pick">
@@ -159,7 +154,7 @@
 </div>
 
 
-
+<script type="text/javascript" src="scene.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>

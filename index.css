@@ -1,8 +1,5 @@
 <style>
 
-.col-sm-3{
-  overflow:hidden;
-}
 .center-container-index {
     display: flex;
     flex-wrap:  wrap;
@@ -27,7 +24,7 @@
 }
 
 body {
-    font-family: Arial;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue"
     margin: 0;
   }
   
@@ -59,7 +56,7 @@ body {
   .next {
     cursor: pointer;
     position: absolute;
-    top: 40%;
+    top: 50%;
     width: auto;
     padding: 16px;
     margin-top: -50px;
@@ -73,7 +70,7 @@ body {
   
   /* Position the "next button" to the right */
   .next {
-    right: 0;
+    right: 15px;
     border-radius: 3px 0 0 3px;
   }
   
@@ -89,6 +86,7 @@ body {
     background-color: #222;
     padding: 1px;
     color: white;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue";
   }
   
   .row:after {
@@ -145,5 +143,41 @@ body {
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
 }
+
+.row-thumbnail {
+  border: 1px solid #dadce0;
+  background-color: white;
+}
+
+.thumbnail {
+position: relative;
+left: -15px;
+}
+
+.caption {
+position: relative;
+left: 240px;
+font-size: 16px;
+text-align: center;
+
+}
+
+.address-button {
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
+  display: inline-block;
+  font-weight: 400;
+  text-align: center;
+  vertical-align: middle;
+  user-select: none;
+  border: 1px solid transparent;
+  padding: .375rem .75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: .25rem;
+  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
 
 </style>

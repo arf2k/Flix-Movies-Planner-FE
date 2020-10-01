@@ -24,11 +24,7 @@ const renderSettings = data => {
 const renderSetting = setting => {
      const settingsContainer = document.querySelector("#settings-container")
      const settingP = document.createElement('p')
-     // settingBtn.innerHTML = `
-     // <button class="btn ${setting.name}">${setting.name}</button><br>
-     // `
-     // const settingImg = document.createElement('img')
-     // settingImg.src = setting.image_url
+
      settingP.textContent = setting.name
      settingP.classList.add("setting-button")
      settingP.dataset.id = setting.id
@@ -41,7 +37,10 @@ const renderSetting = setting => {
 
 function onSettingClick(e){
      fetchAddressByType(e.target.dataset.id)
-     // renderAllAddress(e.target.dataset.id)
+     renderAllAddress(e.target.dataset.id)
+     //try to grab the form . children and get the whole last row(careful not the button one)
+//      const textBox = query selector on row itself 
+//      textBox.dataset.settingId = e.target.dataset.id;
      addressesContainer.innerHTML = ""
 }
 
@@ -58,7 +57,6 @@ function fetchAddressByType(id){
      fetch(locationsSettingsUrl + id)
      .then(res => res.json())
      .then(data => {
-          console.log(data)
           renderAllAddress(data)
      })
 }
@@ -73,31 +71,31 @@ const addressesContainer = document.querySelector("#addresses-container")
 
 function renderAllAddress(addresses) {
      for(let address of addresses) {
-     let addressImgCard = document.createElement('div')
-     addressImgCard.innerHTML =`
-     <div class="row">
-        <div class="col-md-4"> 
-            <div class="thumbnail">
-                <img src="${address.image_url}" alt="Location" style="width:100%">
-                    <div class="caption">
-                        <b><p>${address.name}</p></b>
-                    </div>
-            </div>
-        </div>
-        <div>
-            <p>Borough: ${address.borough}</p>
-            <p>Address: ${address.address}</p>
-            <p>Contact Name: ${address.contact_name}</p>
-            <p>Phone: ${address.contact_phone}</p>
-        </div>
-    </div>
-    `
-     const locButton = document.createElement('button')
-     locButton.classList.add("address-button")
-     locButton.textContent = `${address.address}`
-     locButton.dataset.addressId = address.id
-     addressImgCard.append(locButton)
-     addressesContainer.append(addressImgCard)
+          let addressImgCard = document.createElement('div')
+          addressImgCard.innerHTML =`
+          <div class="row-thumbnail">
+             <div class="col-md-4"> 
+                 <div class="thumbnail">
+                     <img src="${address.image_url}" alt="Location" style="width:348%">
+                         <div class="caption">
+                             <b><p>${address.name}</p></b>
+                         </div>
+                 </div>
+             </div>
+          <div>
+               <p font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue">Information:</p>
+                 <ul>
+                    <li>Borough: ${address.borough}</li>
+                    <li>Address: ${address.address}</li>
+                    <li>Contact Name: ${address.contact_name}</li>
+                    <li>Phone: ${address.contact_phone}</li>
+                    </ul>
+                    <br>
+                 <button type="button" class="btn btn-primary" id='add-address-button'>Add ${address.name}</button>
+             </div>
+         </div>
+         `
+          addressesContainer.append(addressImgCard)
 
      }
 }
@@ -185,7 +183,6 @@ document.addEventListener('click', e => {
 function submitHandler(){
      shootForm.addEventListener('submit', e => {
           e.preventDefault()
-          console.log("click")
           const form = e.target
 
           const shootObj = buildShootFromForm(form)
@@ -202,7 +199,6 @@ function submitHandler(){
              fetch(shootsUrl, options)
              .then(response => response.json())
              .then(shoots => {
-               console.log(shoots)
                renderNewShoot(shoots)
                fetchNewScene(shoots)
                shootForm.remove()
@@ -224,11 +220,11 @@ function renderNewShoot(shoots){
      }
 
 function fetchNewScene(sceneId){
-     
      fetch(scenesUrl + sceneId)
      .then(resp => resp.json())
-     .then(data => {
-          renderScene(data)
+     .then(scene => {
+          renderScene(scene)
+          debugger
      })
 }
      
@@ -239,6 +235,7 @@ function renderScene(scene){
      <h3> ${scene.data.attributes.name} </h3>
      <p> ${scene.data.attributes.location.address}</p>
      `
+
      confirmedScenesBox.append(newSceneDiv)
 }
 
@@ -257,17 +254,12 @@ function buildShootFromForm(form){
      let setting_id = document.querySelector(".shoot-form").dataset.settingId
      let location_id = document.querySelector('.address-button').dataset.addressId
      
-     const scenesObj = {
-          name: sceneName,  
-          setting_id: setting_id,
-          location_id: location_id
-     }
+     const scenesObj = {scenes: Scene.prepShoot}
      
      const shootObj = {
           title: title, 
           date: date, 
-          scenes: [scenesObj]
-
+          scenes: scenesObj
           }
 
 
@@ -277,17 +269,39 @@ function buildShootFromForm(form){
      }
 
 const addFormButton = document.querySelector('#add-scenes-button')
+let row_index = 0;
+addFormButton.addEventListener("click", e => {
+     row_index++;
+     let form = document.querySelector('.shoot-form');
+     let lastDiv = form.querySelector('#last-row');
+     let divNewScene = document.createElement('div');
+     divNewScene.classList.add('form-row');
+     divNewScene.id = `form-row-${row_index}`
+     divNewScene.innerHTML = `
+          <div class="col-4" id='add-scene'>
+          <input type="scene" class="form-control" name="name-${row_index}" id="scene-name-${row_index}" placeholder="Scene Name">
+     </div>
+     <div class="col-4" id='add-setting'>
+          <input type="setting" class="form-control" name="setting-${row_index}" id="setting-name-${row_index}" placeholder="Setting Name">
+     </div>
+     <div class="col-4" id='add-location'>
+          <input type="location" class="form-control" name="address-${row_index}" id="location-address-${row_index}" placeholder="Location Address">
+     </div>
+     `
+     //form.appendChild(divNewScene);
+     form.insertBefore(divNewScene, lastDiv)
+     //createMoreScenesForm(e.target)
 
-// addFormButton.addEventListener("click", e => {
-//      createMoreScenesForm(e.target)
-
-// })
+})
 
 
 function createMoreScenesForm(){
      let newFormFieldsInput = document.createElement("form")
      newFormFieldsInput.innerHTML = `
      <form>
+     <div class="col-4" id='add-scene'>
+     <input type="scene" class="form-control" id="scene-name" placeholder="Setting Name">
+   </div> 
      <div class="form-row">
      <div class="col-4" id='add-scene'>
           <input type="scene" class="form-control" id="scene-name" placeholder="Scene Name">
