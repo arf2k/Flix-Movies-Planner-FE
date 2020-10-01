@@ -41,7 +41,7 @@ const renderSetting = setting => {
 
 function onSettingClick(e){
      fetchAddressByType(e.target.dataset.id)
-     renderAllAddress(e.target.dataset.id)
+     // renderAllAddress(e.target.dataset.id)
      addressesContainer.innerHTML = ""
 }
 
@@ -95,27 +95,22 @@ function renderAllAddress(addresses) {
      locButton.classList.add("address-button")
      locButton.textContent = "Add Location"
      locButton.dataset.addressId = address.id
-     locButton.addEventListener("click", onLocationClick)
      addressImgCard.append(locButton)
      addressesContainer.append(addressImgCard)
 
      }
 }
 
-function onLocationClick(e){
-     fetchSingleLocation(e.target.dataset.id)
-     console.log(e.target.dataset.id)
-     renderLocationChoices(e.target.dataset.id)
-}
 
-function fetchSingleLocation(id){
-     fetch(addressesUrl + id)
-     .then(resp => resp.json())
-     .then(address => {
-          console.log(address)
-          renderLocationChoices(address)
-     })
-}
+
+// function fetchSingleLocation(id){
+//      fetch(addressesUrl + id)
+//      .then(resp => resp.json())
+//      .then(address => {
+//           console.log(address)
+//           renderLocationChoices(address)
+//      })
+// }
 const locationFormInput = document.querySelector("#location-address")
 const locationContainerForm = document.querySelector('#add-location')
 function renderLocationChoices(address) {
@@ -147,69 +142,39 @@ function renderChosenScenes(scenes){
      let input = document.querySelector(".form-check-input").value
      const newInput = scene
     sceneNameBox.value = newInput
-
-
      // sceneNameBox.value.append(input) 
   }
 }
   
+const confirmedBox = document.querySelector("#confirmed-scenes")
+const shootForm = document.querySelector(".shoot-form")
 
-const sceneForm = document.querySelector(".scene-form")
+function clickHandler(){
+document.addEventListener('click', e => {
+     if(e.target.matches(".setting-button")) {
+     let settingId = e.target.dataset.id 
+     let settingBox = shootForm.setting
+     settingBox.value = e.target.textContent
+     shootForm.dataset.settingId = settingId 
 
-// function eventHandler(){
-// document.addEventListener('click', e => {
-//      if(e.target.textContent === "Add Location")
-//      let locBtn = e.target.closest('btn')
-//     let addressId = document.querySelector('.address-button').dataset.addressId
-//      let locationBox = document.querySelector("#add-location")
-//      sceneForm.dataset.addressId = addressId 
-// } else if(e.target.matches(".setting-button")){
-//      let settingId = document.querySelector(".setting-button").dataset.settingId
-//      let settingBox = document.querySelector("#add-setting")
-
-// } else if(e.target.matches("#scene-submit-button")){
-//      e.preventDefault()
-//      const sceneForm = document.querySelector(".scene-form")
-//      let sceneName = sceneNameBox.value  
-//      let settingName = settingBox.value 
-//      let locationName = locationBox.value 
-
-//      const sceneObj = {
-//           sceneName = name 
-//           settingId = setting_id 
-//           addressId = location_id 
-
-//      }
-
-//      let options = {
-//           method: "POST",
-//           headers:  {
-//                 "content-type": "application/json",
-//                "accept": "application/json"
-//         },
-//         body: JSON.stringify(sceneObj)
-          
-//      }
-
-//      fetch(sceneUrl/create + options)
-//      .then(res => res.json())
-//      .then(console.log)
-
-
-// }
-// }
-
-// })
-
-
+} else if(e.target.matches(".address-button")){
+     let addressId = e.target.dataset.addressId 
+     let locationBox = shootForm.address
+     locationBox.value = e.target.textContent 
+     shootForm.dataset.addressId = addressId 
+    
+     }    
+     })
+}
 
 function submitHandler(){
-     sceneForm.addEventListener('submit', e => {
+     shootForm.addEventListener('submit', e => {
           e.preventDefault()
+          console.log("click")
           const form = e.target
 
           const shootObj = buildShootFromForm(form)
-
+          debugger;
           const options = {
                method: "POST",
                headers: {
@@ -223,14 +188,15 @@ function submitHandler(){
              .then(response => response.json())
              .then(movie => {
                console.log(movie)
-               sceneForm.reset()
-             })
-       
-           })
-         }
-
-
+               // sceneForm.reset()
+          })
      })
+}
+
+
+     
+
+
 const locationBox = document.querySelector("#add-location")
 const settingBox = document.querySelector("#add-setting")
 const shootTitleFormBox = document.querySelector("#title-of-scene")
@@ -242,39 +208,32 @@ function buildShootFromForm(form){
      let date = shootDateFormBox.value
      
      let sceneName = sceneNameBox.value 
-     let setting_id = document.querySelector(".setting-button").dataset.settingId
+     let setting_id = document.querySelector(".shoot-form").dataset.settingId
      let location_id = document.querySelector('.address-button').dataset.addressId
-     
      
      const scenesObj = {
           name: sceneName,  
           setting_id: setting_id,
           location_id: location_id
      }
-
      
-     
-}
+     const shootObj = {
+          title: title, 
+          date: date, 
+          scenes: [scenesObj]
+
+          }
 
 
+          return shootObj
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-     getSettings()
+     }
+submitHandler()
+getSettings()
 // getAllAddresses()
 fetchAddressByType()
-fetchSingleLocation()
+// fetchSingleLocation()
+clickHandler()
 })
 
