@@ -121,7 +121,7 @@ function renderLocationChoices(address) {
 //    locationContainerForm.append(locUl) 
 }
 
-// const checkBoxForm = document.querySelector('#form-pick')
+const checkBoxForm = document.querySelector('#form-pick')
 // checkBoxForm.addEventListener('submit', e => {
 //      e.preventDefault()
 //      let inputs = checkBoxForm.children
@@ -136,15 +136,14 @@ function renderLocationChoices(address) {
 
 const sceneNameBox = document.querySelector("#scene-name")
 const sceneContainerForm = document.querySelector('#add-scene')
-function renderChosenScenes(scenes){
-  for(let scene of scenes){
-     const addUl = document.createElement('ul')
-     let input = document.querySelector(".form-check-input").value
+function renderChosenScenes(scene){
+     // const addUl = document.createElement('ul')
      const newInput = scene
     sceneNameBox.value = newInput
+    
      // sceneNameBox.value.append(input) 
   }
-}
+
   
 const confirmedBox = document.querySelector("#confirmed-scenes")
 const shootForm = document.querySelector(".shoot-form")
@@ -162,10 +161,28 @@ document.addEventListener('click', e => {
      let locationBox = shootForm.address
      locationBox.value = e.target.textContent 
      shootForm.dataset.addressId = addressId 
+
     
-     }    
+     // } else if(e.target.textContent === "Select Scene"){
+     //      e.preventDefault()
+     //         checkBoxForm.children = e.target
+     //         console.log(e.target)
+               
+
+     //           console.log(inputs)
+     //           let array = [] 
+     //           for (let i = 0; i <inputs.length; i++){
+     //                if(inputs[i].checked)
+     //                array.push(inputs[i].value)
+     //           }  
+     //           renderChosenScenes(array) 
+     //           debugger
+     // }  
+}
      })
 }
+
+
 
 function submitHandler(){
      shootForm.addEventListener('submit', e => {
@@ -210,6 +227,7 @@ function renderNewShoot(shoots){
      }
 
 function fetchNewScene(sceneId){
+     
      fetch(scenesUrl + sceneId)
      .then(resp => resp.json())
      .then(data => {
@@ -221,8 +239,8 @@ function fetchNewScene(sceneId){
 function renderScene(scene){
      let newSceneDiv = document.createElement('div')
      newSceneDiv.innerHTML = `
-     <h3> ${scene.name} </h3>
-     <p> ${scene.location}</p>
+     <h3> ${scene.data.attributes.name} </h3>
+     <p> ${scene.data.attributes.location.address}</p>
      `
      confirmedScenesBox.append(newSceneDiv)
 }
