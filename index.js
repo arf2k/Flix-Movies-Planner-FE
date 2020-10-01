@@ -188,7 +188,7 @@ function submitHandler(){
              .then(response => response.json())
              .then(movie => {
                console.log(movie)
-               // sceneForm.reset()
+               // shootForm.reset()
           })
      })
 }
@@ -229,6 +229,33 @@ function buildShootFromForm(form){
 
 
      }
+
+const addFormButton = document.querySelector('#add-scenes-button')
+
+addFormButton.addEventListener("click", e => {
+     console.log("click")
+
+})
+
+
+function createMoreScenesForm(){
+     let newFormFieldsInput = document.createElement("input")
+     newFormFieldsInput.innerHTML = `
+     <div class="col-4" id='add-scene'>
+          <input type="scene" class="form-control" id="scene-name" placeholder="Scene Name">
+        </div>
+        <div class="col-4" id='add-setting'>
+          <input type="setting" class="form-control" name="setting" id="setting-name" placeholder="Setting Name">
+        </div>
+        <div class="col-4" id='add-location'>
+          <input type="location" class="form-control" name="address" id="location-address" placeholder="Location Address">
+        </div>
+        `
+        shootForm.append(newFormFieldsInput)
+}
+
+
+
 submitHandler()
 getSettings()
 // getAllAddresses()
