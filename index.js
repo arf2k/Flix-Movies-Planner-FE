@@ -115,10 +115,8 @@ function renderAllAddress(addresses) {
 const locationFormInput = document.querySelector("#location-address")
 const locationContainerForm = document.querySelector('#add-location')
 function renderLocationChoices(address) {
-//    const locUl = document.createElement('ul')
    const newInput = address.name
    locationFormInput.value = newInput
-//    locationContainerForm.append(locUl) 
 }
 
 const checkBoxForm = document.querySelector('#form-pick')
@@ -163,23 +161,23 @@ document.addEventListener('click', e => {
      shootForm.dataset.addressId = addressId 
 
     
-     // } else if(e.target.textContent === "Select Scene"){
-     //      e.preventDefault()
-     //         checkBoxForm.children = e.target
-     //         console.log(e.target)
+     } else if(e.target.textContent === "Select Scene"){
+          e.preventDefault()
+             checkBoxForm.children = e.target
+             console.log(e.target)
                
 
-     //           console.log(inputs)
-     //           let array = [] 
-     //           for (let i = 0; i <inputs.length; i++){
-     //                if(inputs[i].checked)
-     //                array.push(inputs[i].value)
-     //           }  
-     //           renderChosenScenes(array) 
-     //           debugger
-     // }  
-}
-     })
+               // console.log(inputs)
+               // let array = [] 
+               // for (let i = 0; i <inputs.length; i++){
+               //      if(inputs[i].checked)
+               //      array.push(inputs[i].value)
+               // }  
+               // renderChosenScenes(array) 
+               // debugger
+     }  
+})
+     
 }
 
 
@@ -207,9 +205,8 @@ function submitHandler(){
                console.log(shoots)
                renderNewShoot(shoots)
                fetchNewScene(shoots)
-             
                shootForm.remove()
-          
+               createMoreScenesForm()
           })
      })
 }
@@ -281,15 +278,16 @@ function buildShootFromForm(form){
 
 const addFormButton = document.querySelector('#add-scenes-button')
 
-addFormButton.addEventListener("click", e => {
-     createMoreScenesForm(e.target)
+// addFormButton.addEventListener("click", e => {
+//      createMoreScenesForm(e.target)
 
-})
+// })
 
 
 function createMoreScenesForm(){
      let newFormFieldsInput = document.createElement("form")
      newFormFieldsInput.innerHTML = `
+     <form>
      <div class="form-row">
      <div class="col-4" id='add-scene'>
           <input type="scene" class="form-control" id="scene-name" placeholder="Scene Name">
@@ -301,6 +299,9 @@ function createMoreScenesForm(){
           <input type="location" class="form-control" name="address" id="location-address" placeholder="Location Address">
         </div>
         </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit New Scene</button> 
+        </form>
         `
         shootContainer.append(newFormFieldsInput)
 }
