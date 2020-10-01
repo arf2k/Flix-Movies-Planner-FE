@@ -58,6 +58,7 @@ function fetchAddressByType(id){
      fetch(locationsSettingsUrl + id)
      .then(res => res.json())
      .then(data => {
+          console.log(data)
           renderAllAddress(data)
      })
 }
@@ -185,15 +186,35 @@ function submitHandler(){
 
              fetch(shootsUrl, options)
              .then(response => response.json())
-             .then(movie => {
-               console.log(movie)
-               // shootForm.reset()
+             .then(shoot => {
+               console.log(shoot)
+               renderNewShoot(shoot)
+               shootForm.remove()
+          
           })
      })
 }
 
+const confirmedScenesBox = document.querySelector("#confirmed-scenes")
+function renderNewShoot(shoot){
+     let newAddressDiv = document.createElement('div')
+     newAddressDiv.innerHTML = `
+     <h3> ${shoot.title}</h3>
+     <p>Shoot Date: ${shoot.date}</p>
+     `
+     // renderScene(shoot.scenes)
+     confirmedScenesBox.append(newAddressDiv)
+}
 
      
+// function renderScene(scene){
+//      let newSceneDiv = document.createElement('div')
+//      newSceneDiv.innerHTML = `
+//      <h3> ${scene.name} </h3>
+//      <p> ${scene.location}</p>
+//      `
+//      confirmedScenesBox.append(newSceneDiv)
+// }
 
 
 const locationBox = document.querySelector("#add-location")
@@ -252,12 +273,14 @@ function createMoreScenesForm(){
         </div>
         </div>
         `
-        shootForm.append(newFormFieldsInput)
+        shootContainer.append(newFormFieldsInput)
 }
 
 
 
 
+
+const shootContainer = document.querySelector("#shoot-container")
 
 submitHandler()
 getSettings()
