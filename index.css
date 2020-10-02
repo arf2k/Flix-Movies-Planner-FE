@@ -145,7 +145,7 @@ body {
 }
 
 .row-thumbnail {
-  border: 1px solid #dadce0;
+  border: 1px solid hsl(220, 9%, 87%);
   background-color: white;
 }
 
@@ -156,7 +156,7 @@ left: -15px;
 
 .caption {
 position: relative;
-left: 240px;
+left: 195px;
 font-size: 16px;
 text-align: center;
 
@@ -177,6 +177,10 @@ text-align: center;
   line-height: 1.5;
   border-radius: .25rem;
   transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+#settings-container {
+
 }
 
 

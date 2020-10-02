@@ -39,9 +39,9 @@ function onSettingClick(e){
      fetchAddressByType(e.target.dataset.id)
      renderAllAddress(e.target.dataset.id)
      let lastRow = document.querySelector("#last-row")
-     let settingBox =  lastRow.previousElementSibling.lastElementChild.previousElementSibling
-     settingBox.dataset.settingId = e.target.dataset.id
-     settingBox.textContent = e.target.textContent
+     let settingBox = lastRow.previousSibling.querySelector("[id^='setting']") 
+     settingBox.parentElement.dataset.settingId = e.target.dataset.id
+     settingBox.value = e.target.textContent
      addressesContainer.innerHTML = ""
 }
 
@@ -73,8 +73,6 @@ const addressesContainer = document.querySelector("#addresses-container")
 function renderAllAddress(addresses) {
      for(let address of addresses) {
           let addressImgCard = document.createElement('div')
-          addressImgCard.dataset.addressId = address.id
-          addressImgCard.addEventListener("click", onAddressClick)
           addressImgCard.innerHTML =`
           <div class="row-thumbnail">
              <div class="col-md-4"> 
@@ -93,21 +91,19 @@ function renderAllAddress(addresses) {
                     <li>Contact Name: ${address.contact_name}</li>
                     <li>Phone: ${address.contact_phone}</li>
                     </ul>
-                    <br>
-                 <button type="button" class="btn btn-primary" id='add-address-button'>Add ${address.name}</button>
+                <button type="button" class="btn btn-primary" data-address-id=${address.id} id='add-address-button'> ${address.name}</button>
              </div>
          </div>
          `
           
+        
           addressesContainer.append(addressImgCard)
 
      }
 }
 
-function onAddressClick(){
-     console.log("click")
 
-}
+
 
 
 
@@ -119,12 +115,6 @@ function onAddressClick(){
 //           renderLocationChoices(address)
 //      })
 // }
-const locationFormInput = document.querySelector("#location-address")
-const locationContainerForm = document.querySelector('#add-location')
-function renderLocationChoices(address) {
-   const newInput = address.name
-   locationFormInput.value = newInput
-}
 
 const checkBoxForm = document.querySelector('#form-pick')
 // checkBoxForm.addEventListener('submit', e => {
@@ -139,34 +129,23 @@ const checkBoxForm = document.querySelector('#form-pick')
 //      renderChosenScenes(array) 
 // })
 
-// const sceneNameBox = document.querySelector("#scene-name")
-// const sceneContainerForm = document.querySelector('#add-scene')
-// function renderChosenScenes(scene){
-//      // const addUl = document.createElement('ul')
-//      const newInput = scene
-//     sceneNameBox.value = newInput
-    
-//      // sceneNameBox.value.append(input) 
-//   }
+
 
   
 const confirmedBox = document.querySelector("#confirmed-scenes")
 const shootForm = document.querySelector(".shoot-form")
 
-// function clickHandler(){
-// document.addEventListener('click', e => {
-     // if(e.target.matches(".setting-button")) {
-     // let settingId = e.target.dataset.id 
-     // let settingBox = shootForm.setting
-     // settingBox.value = e.target.textContent
-     // shootForm.dataset.settingId = settingId 
-
-// } else if(e.target.matches(".address-button")){
-//      let addressId = e.target.dataset.addressId 
-//      let locationBox = shootForm.address
-//      locationBox.value = e.target.textContent 
-//      shootForm.dataset.addressId = addressId 
-
+function clickHandler(){
+document.addEventListener('click', e => {
+     if(e.target.matches("#add-address-button")){
+     let lastRow = document.querySelector("#last-row")
+     let addressButton = lastRow.previousElementSibling.lastElementChild
+     addressButton.dataset.addressId = e.target.dataset.id
+     addressButton.textContent = e.target.textContent
+     debugger
+     }
+     })
+}
     
 //      } else if(e.target.textContent === "Select Scene"){
 //           e.preventDefault()
@@ -195,7 +174,7 @@ function submitHandler(){
           const form = e.target
 
           const shootObj = buildShootFromForm(form)
-         
+        
           const options = {
                method: "POST",
                headers: {
@@ -208,10 +187,8 @@ function submitHandler(){
              fetch(shootsUrl, options)
              .then(response => response.json())
              .then(shoots => {
+               console.log(shoots)
                renderNewShoot(shoots)
-               fetchNewScene(shoots)
-               shootForm.remove()
-               createMoreScenesForm()
           })
      })
 }
@@ -233,7 +210,7 @@ function fetchNewScene(sceneId){
      .then(resp => resp.json())
      .then(scene => {
           renderScene(scene)
-          debugger
+          
      })
 }
      
@@ -262,10 +239,10 @@ function buildShootFromForm(form){
      
      let sceneName = lastRow.previousElementSibling.firstElementChild.value
      let setting_id = lastRow.previousElementSibling.lastElementChild.previousElementSibling.dataset.settingId
-     let location_id = document.querySelector('.address-button').dataset.addressId
+     let location_id = lastRow.previousElementSibling.lastElementChild.dataset.addressId
      
      const scenesObj = {scenes: Scene.prepShoot}
-     
+     debugger 
      const shootObj = {
           title: title, 
           date: date, 
@@ -341,6 +318,6 @@ getSettings()
 // getAllAddresses()
 fetchAddressByType()
 // fetchSingleLocation()
-// clickHandler()
+clickHandler()
 })
 
