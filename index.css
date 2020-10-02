@@ -216,4 +216,17 @@ hr {
   left: 100px;
 }
 
+.confirmed-scenes-div {
+  padding: 1%;
+  border-style: solid;
+  border: 1px solid black;
+
+}
+
+.confirmed-scenes-scene-container {
+  padding: 1%;
+  border-style: solid;
+  border: 1px solid black;
+}
+
 </style>
