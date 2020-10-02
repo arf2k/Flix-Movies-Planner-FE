@@ -207,7 +207,6 @@ function renderNewShoot(shoots){
      <h4> Movie Title: ${shoots.data.attributes.title}</h4>
      <p>Shoot Date: ${shoots.data.attributes.date}</p>
      <p> Shoot Id :${shoots.data.id}</p>
-     <br>
      `
      
      let scenes = shoots.data.relationships.scenes.data
@@ -216,7 +215,8 @@ function renderNewShoot(shoots){
           fetchNewScene(scene.id)
      }
 
-     
+     attachConfirm()
+
      }
 
 function fetchNewScene(sceneId){
@@ -228,15 +228,16 @@ function fetchNewScene(sceneId){
      })
 }
 
+function attachConfirm(){
+     let attachConfirm = document.querySelector("#attach-confirm")
+     attachConfirm
+     let confirmation = document.createElement('p')
+     confirmation.innerHTML = `<p margin: auto contenteditable="true"><h1>Confirmed Scenes</h1></p> `
+    lastRow.append(confirmation)
+}
 
 
-// function fetchSecondScene(sceneId)
-//      fetch(scenesUrl + (sceneId +1))
-//      .then(resp => resp.json())
-//      .then(scene => {
-//           console.log(scene)
-//           renderScene2(scene)
-//      })
+
 
 
 
@@ -254,16 +255,7 @@ function renderScene(scene){
      confirmedScenesBox.append(newSceneDiv)
 }
 
-// function renderScene2(scene){
-//      let newSceneDiv = document.createElement('div')
-//      newSceneDiv.innerHTML = `
-//      <h3> Scene Name: ${scene.data.attributes.name} </h3>
-//      <p> Location: ${scene.data.attributes.location.address}</p>
-//      <p> Scene Id: ${scene.data.id}</p>
-//      `
 
-//      confirmedScenesBox.append(newSceneDiv)
-// }
 
 const locationBox = document.querySelector("#add-location")
 const settingBox = document.querySelector("#add-setting")
