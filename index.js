@@ -205,6 +205,7 @@ function renderNewShoot(shoots){
      newAddressDiv.innerHTML = `
      <h3> Movie Title:${shoots.data.attributes.title}</h3>
      <p>Shoot Date: ${shoots.data.attributes.date}</p>
+     <p> Shoot Id :${shoots.data.id}</p>
      `
      
      let scenes = shoots.data.relationships.scenes.data
@@ -250,6 +251,8 @@ function renderScene(scene){
      <h3> Scene Name: ${scene.data.attributes.name} </h3>
      <p> Location: ${scene.data.attributes.location.address}</p>
      <p> Scene Id: ${scene.data.id}</p>
+     <p> Shoot Id: ${scene.data.attributes.shoot_info.shoot_id}</p>
+     // <p> Movie Title: ${scene.data.attributes.shoot_info.shoot_title}
      `
 
      confirmedScenesBox.append(newSceneDiv)
