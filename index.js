@@ -139,13 +139,18 @@ function clickHandler(){
 document.addEventListener('click', e => {
      if(e.target.matches("#add-address-button")){
      let lastRow = document.querySelector("#last-row")
-     let addressButton = lastRow.previousElementSibling.lastElementChild
-     addressButton.dataset.addressId = e.target.dataset.id
-     addressButton.textContent = e.target.textContent
+     let addressButton = lastRow.previousSibling.querySelector("[id^='location']") 
+     addressButton.parentElement.dataset.addressId = e.target.dataset.id
+     addressButton.value = e.target.textContent
      debugger
      }
      })
 }
+
+
+
+
+
     
 //      } else if(e.target.textContent === "Select Scene"){
 //           e.preventDefault()
@@ -237,12 +242,17 @@ function buildShootFromForm(form){
      let title = shootTitleFormBox.value 
      let date = shootDateFormBox.value
      
-     let sceneName = lastRow.previousElementSibling.firstElementChild.value
+     let sceneName = lastRow.previousElementSibling.querySelector("[id^='scene']").value
      let setting_id = lastRow.previousElementSibling.lastElementChild.previousElementSibling.dataset.settingId
-     let location_id = lastRow.previousElementSibling.lastElementChild.dataset.addressId
+     let location_id = lastRow.previousSibling.querySelector("[id^='location']").parentElement.dataset.addressId 
      
+     
+    
+    
+    
+    
      const scenesObj = {scenes: Scene.prepShoot}
-     debugger 
+   debugger
      const shootObj = {
           title: title, 
           date: date, 
