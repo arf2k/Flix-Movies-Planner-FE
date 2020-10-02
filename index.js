@@ -117,14 +117,15 @@ function renderAllAddress(addresses) {
 //           console.log(address)
 //           renderLocationChoices(address)
 //      })
-// }
+// // }
 
-const checkBoxForm = document.querySelector('#form-pick')
+// const checkBoxForm = document.querySelector('#form-pick')
 // checkBoxForm.addEventListener('submit', e => {
 //      e.preventDefault()
+    
 //      let inputs = checkBoxForm.children
-//      console.log(inputs)
-//      let array = [] 
+//      inputs.checked.value 
+  
 //      for (let i = 0; i <inputs.length; i++){
 //           if(inputs[i].checked)
 //           array.push(inputs[i].value)
@@ -193,7 +194,6 @@ function submitHandler(){
              fetch(shootsUrl, options)
              .then(response => response.json())
              .then(shoots => {
-               console.log(shoots)
                renderNewShoot(shoots)
           })
      })
@@ -202,10 +202,12 @@ function submitHandler(){
 const confirmedScenesBox = document.querySelector("#confirmed")
 function renderNewShoot(shoots){
      let newAddressDiv = document.createElement('div')
+     newAddressDiv.classList.add("confirmed-scenes-div")
      newAddressDiv.innerHTML = `
-     <h3> Movie Title:${shoots.data.attributes.title}</h3>
+     <h4> Movie Title: ${shoots.data.attributes.title}</h4>
      <p>Shoot Date: ${shoots.data.attributes.date}</p>
      <p> Shoot Id :${shoots.data.id}</p>
+     <br>
      `
      
      let scenes = shoots.data.relationships.scenes.data
@@ -214,12 +216,6 @@ function renderNewShoot(shoots){
           fetchNewScene(scene.id)
      }
 
-     // let sceneId = shoots.data.relationships.scenes.data[0].id
- 
-     // let sceneId2 = shoots.data.relationsips.scenes.data[1].id
-     
-     // fetchNewScene(sceneId)
-     // fetchSecondScene(sceneId + 1)
      
      }
 
@@ -227,7 +223,6 @@ function fetchNewScene(sceneId){
      fetch(scenesUrl + sceneId)
      .then(resp => resp.json())
      .then(scene => {
-          console.log(scene)
           renderScene(scene)
           
      })
@@ -247,12 +242,13 @@ function fetchNewScene(sceneId){
 
 function renderScene(scene){
      let newSceneDiv = document.createElement('div')
+     newSceneDiv.classList.add("confirmed-scenes-scene-container")
      newSceneDiv.innerHTML = `
-     <h3> Scene Name: ${scene.data.attributes.name} </h3>
+     <h4> Scene Name: ${scene.data.attributes.name} </h4>
      <p> Location: ${scene.data.attributes.location.address}</p>
      <p> Scene Id: ${scene.data.id}</p>
      <p> Shoot Id: ${scene.data.attributes.shoot_info.shoot_id}</p>
-     // <p> Movie Title: ${scene.data.attributes.shoot_info.shoot_title}
+     <p> Movie Title: ${scene.data.attributes.shoot_info.shoot_tite}
      `
 
      confirmedScenesBox.append(newSceneDiv)

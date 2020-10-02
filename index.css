@@ -202,9 +202,8 @@ div {
 }
 
 .navbar {
-  position: sticky;
   top: 0rem;
-  background: 
+  background-color: #2d2d2d;
 }
 
 #create-shoot-button {
@@ -214,6 +213,19 @@ div {
 hr {
   position: relative;
   left: 100px;
+}
+
+.confirmed-scenes-div {
+  padding: 1%;
+  border-style: solid;
+  border: 1px solid black;
+
+}
+
+.confirmed-scenes-scene-container {
+  padding: 1%;
+  border-style: solid;
+  border: 1px solid black;
 }
 
 </style>
