@@ -77,11 +77,12 @@ function renderAllAddress(addresses) {
           <div class="row-thumbnail">
              <div class="col-md-4"> 
                  <div class="thumbnail">
-                     <img src="${address.image_url}" alt="Location" style="width:348%">
+                     <img src="${address.image_url}" alt="Location" style="width:365%">
                          <div class="caption">
                              <b><p>${address.name}</p></b>
                          </div>
                  </div>
+                 <hr size="1" width="200%" color="#f1f1f1"> 
              </div>
           <div>
                <p font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue">Information:</p>
@@ -91,9 +92,11 @@ function renderAllAddress(addresses) {
                     <li>Contact Name: ${address.contact_name}</li>
                     <li>Phone: ${address.contact_phone}</li>
                     </ul>
+                    <br>
                 <button type="button" class="btn btn-primary" data-address-id=${address.id} id='add-address-button'> ${address.name}</button>
              </div>
          </div>
+         <br>
          `
           
         
@@ -164,7 +167,6 @@ document.addEventListener('click', e => {
 //                //      array.push(inputs[i].value)
 //                // }  
 //                // renderChosenScenes(array) 
-//                // debugger
        
 // })
      
@@ -197,15 +199,22 @@ function submitHandler(){
      })
 }
 
-const confirmedScenesBox = document.querySelector("#confirmed-scenes")
+const confirmedScenesBox = document.querySelector("#confirmed")
 function renderNewShoot(shoots){
      let newAddressDiv = document.createElement('div')
      newAddressDiv.innerHTML = `
-     <h3> ${shoots.data.attributes.title}</h3>
+     <h3> Movie Title:${shoots.data.attributes.title}</h3>
      <p>Shoot Date: ${shoots.data.attributes.date}</p>
+     <p>Shoot id: ${shoots.data.id[0]}</p>
+     <p>Shoot id: ${shoots.data.id[1]}</p>
      `
+     
      let sceneId = shoots.data.relationships.scenes.data[0].id
+ 
+     // let sceneId2 = shoots.data.relationsips.scenes.data[1].id
+     
      fetchNewScene(sceneId)
+     fetchSecondScene(sceneId + 1)
      confirmedScenesBox.append(newAddressDiv)
      }
 
@@ -213,22 +222,43 @@ function fetchNewScene(sceneId){
      fetch(scenesUrl + sceneId)
      .then(resp => resp.json())
      .then(scene => {
+          console.log(scene)
           renderScene(scene)
           
      })
 }
-     
+
+function fetchSecondScene(sceneId)
+     fetch(scenesUrl + (sceneId +1))
+     .then(resp => resp.json())
+     .then(scene => {
+          console.log(scene)
+          renderScene2(scene)
+     })
+
+
 
 function renderScene(scene){
      let newSceneDiv = document.createElement('div')
      newSceneDiv.innerHTML = `
-     <h3> ${scene.data.attributes.name} </h3>
-     <p> ${scene.data.attributes.location.address}</p>
+     <h3> Scene Name: ${scene.data.attributes.name} </h3>
+     <p> Location: ${scene.data.attributes.location.address}</p>
+     <p> Scene Id: ${scene.data.id}</p>
      `
 
      confirmedScenesBox.append(newSceneDiv)
 }
 
+// function renderScene2(scene){
+//      let newSceneDiv = document.createElement('div')
+//      newSceneDiv.innerHTML = `
+//      <h3> Scene Name: ${scene.data.attributes.name} </h3>
+//      <p> Location: ${scene.data.attributes.location.address}</p>
+//      <p> Scene Id: ${scene.data.id}</p>
+//      `
+
+//      confirmedScenesBox.append(newSceneDiv)
+// }
 
 const locationBox = document.querySelector("#add-location")
 const settingBox = document.querySelector("#add-setting")
@@ -259,19 +289,13 @@ function buildShootFromForm(form){
 }
 
      const scenesObj = {scenes: Scene.prepShoot}
-     debugger
      const shootObj = {
           title: title, 
           date: date, 
           scenesObj
-          // scenes: [{ 
-          //      name: sceneName,
-          //      setting_id: setting_id,
-          //      location_id: location_id
-          // }]
      }
-     debugger
-          return shootObj
+
+         return shootObj
 
 
      }

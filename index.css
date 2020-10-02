@@ -1,5 +1,6 @@
 <style>
 
+
 .center-container-index {
     display: flex;
     flex-wrap:  wrap;
@@ -152,11 +153,12 @@ body {
 .thumbnail {
 position: relative;
 left: -15px;
+border-radius: 15%;
 }
 
 .caption {
 position: relative;
-left: 195px;
+left: 185px;
 font-size: 16px;
 text-align: center;
 
@@ -179,9 +181,39 @@ text-align: center;
   transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
 
-#settings-container {
-
+li {
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue"
 }
 
+div {
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue"
+}
+
+#settings-container {
+  position: sticky;
+  top: 10rem;
+  height: 100%;
+}
+
+#scenes-container {
+  position: sticky;
+  top: 10rem;
+  height: 100%;
+}
+
+.navbar {
+  position: sticky;
+  top: 0rem;
+  background: 
+}
+
+#create-shoot-button {
+  left: 5px;
+}
+
+hr {
+  position: relative;
+  left: 100px;
+}
 
 </style>

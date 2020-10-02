@@ -8,43 +8,53 @@
           <link rel="stylesheet" href="index.css">
           <title>MOVIE CREATOR</title>
         
-          
+          <div class="navbar">
+            <img src='assets/images/logo.gif' alt='logo' class='logo' height="75" width="75">
+            <div class='names'>
+              <p><a href='https://github.com/arf2k' class='social-github'>Alex Foreman</a></p>
+              <p><a href='https://github.com/zhaoerik' class='social-github'>Erik Zhao</a></p>
+            </div>
+          </div>
 </head>
 <body style="background-color: #f8f9fa;">
  
      
     
-     <div class= "container" id='shoot-container'>
-      <div class="row">
-        <div class="col-12">
-          <div margin: auto class="d-flex justify-content-center" style="background-color: #f8f9fa; font-family: 'Montserrat', sans-serif;">
-            <p margin: auto contenteditable="true"><h1>Plan Your Shoot</h1></p>
-        </div>
-      </div>
-      
-      
-      <form class= "shoot-form">
-      <div class="form-row" id="shoot-row">
-        <div class="col-6" id='add-title'>
-          <input type="title" class="form-control" id="title-of-scene" placeholder="Shoot Title">
-        </div>
-        <div class="col-6" id='add-date'>
-          <input type='date' class='form-control' id='date-of-scene' placeholder='Scene Date'>
-        </div>
-      </div>
-      <div class="form-row" id="last-row">
-        <div class="col-4" id='submit-form'>
-          <button type="submit" class="btn btn-primary">Create Shoot</button>
-      </div>
-        </div>
-      </div>
+  <div class= "container" id='shoot-container'>
+   <div class="plan-row">
+     <div class="col-12">
+       <div margin: auto class="d-flex justify-content-center" style="background-color: #f8f9fa;" id='plan'>
+         <p margin: auto contenteditable="true"><h1>Plan Your Shoot</h1></p>
+     </div>
+   </div>
+   
+   
+   <button type="submit" id='add-scenes-button' class="btn btn-primary" style= "float: right;">Add Scene</button>
+   <form class= "shoot-form">
+   <div class="form-row" id="shoot-row">
+     <div class="col-6" id='add-title'>
+       <input type="title" class="form-control" id="title-of-scene" placeholder="Shoot Title">
+     </div>
+     <div class="col-6" id='add-date'>
+       <input type='date' class='form-control' id='date-of-scene' placeholder='Scene Date'>
+     </div>
+   </div>
+   <div class="form-row" id="last-row">
+     <div class="col-4" id='submit-form'>
+       <br>
+       <button type="submit" class="btn btn-primary" id='create-shoot-button'>Create Shoot</button>
+       <br>
+       <br><br>
+   </div>
+     </div>
+   </div>
 
-    
-  <br><br><br>
+ 
+<br><br><br>
 
 
   <div class="container" id="confirmed-scenes">
-    <div class="row">
+    <div class="row" id="confirmed">
       <div class="col-12">
         <div margin: auto class="d-flex justify-content-center">
           <p margin: auto contenteditable="true"><h1>Confirmed Scenes</h1></p> 
@@ -54,7 +64,6 @@
         <div class="col">
     </div>
   </div>
-  <button type="button" id="add-scenes-button" class="btn btn-primary">Add Scene</button>
 </div>
   <br><br><br>
 
@@ -116,7 +125,7 @@
                   </div>   
                </div>
                <div class="col-sm-3" style="background-color:#f8f9fa;" id="scenes-container">
-                 <h1>Scenes</h1>
+                 <h3>Popular Scenes</h3>
                  <div class="form-group" id="form-pick">
                     <div class="form-check" id="scene-pick">
                      <form id="sceneCheckForm">
