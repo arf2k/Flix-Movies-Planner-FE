@@ -140,9 +140,8 @@ document.addEventListener('click', e => {
      if(e.target.matches("#add-address-button")){
      let lastRow = document.querySelector("#last-row")
      let addressButton = lastRow.previousSibling.querySelector("[id^='location']") 
-     addressButton.parentElement.dataset.addressId = e.target.dataset.id
+     addressButton.parentElement.dataset.addressId = e.target.dataset.addressId
      addressButton.value = e.target.textContent
-     debugger
      }
      })
 }
@@ -241,25 +240,37 @@ function buildShootFromForm(form){
      
      let title = shootTitleFormBox.value 
      let date = shootDateFormBox.value
-     
-     let sceneName = lastRow.previousElementSibling.querySelector("[id^='scene']").value
-     let setting_id = lastRow.previousElementSibling.lastElementChild.previousElementSibling.dataset.settingId
-     let location_id = lastRow.previousSibling.querySelector("[id^='location']").parentElement.dataset.addressId 
-     
+
+    
      
     
-    
-    
-    
+     let i = document.querySelectorAll("[id^='scene-name']").length
+     while(i > 0){
+          let sceneName = document.querySelector(`[id="scene-name-${i}"]`).value
+          let setting_id = document.querySelector(`[id="setting-name-${i}"]`).parentElement.dataset.settingId
+          let location_id = document.querySelector(`[id='location-address-${i}']`).parentElement.dataset.addressId
+          
+      new Scene(  
+          sceneName,
+          location_id,
+          setting_id 
+     )
+     i--
+}
+
      const scenesObj = {scenes: Scene.prepShoot}
-   debugger
+     debugger
      const shootObj = {
           title: title, 
           date: date, 
-          scenes: scenesObj
-          }
-
-
+          scenesObj
+          // scenes: [{ 
+          //      name: sceneName,
+          //      setting_id: setting_id,
+          //      location_id: location_id
+          // }]
+     }
+     debugger
           return shootObj
 
 
