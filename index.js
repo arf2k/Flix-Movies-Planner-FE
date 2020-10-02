@@ -205,17 +205,21 @@ function renderNewShoot(shoots){
      newAddressDiv.innerHTML = `
      <h3> Movie Title:${shoots.data.attributes.title}</h3>
      <p>Shoot Date: ${shoots.data.attributes.date}</p>
-     <p>Shoot id: ${shoots.data.id[0]}</p>
-     <p>Shoot id: ${shoots.data.id[1]}</p>
      `
      
-     let sceneId = shoots.data.relationships.scenes.data[0].id
+     let scenes = shoots.data.relationships.scenes.data
+     confirmedScenesBox.append(newAddressDiv)
+     for(let scene of scenes){
+          fetchNewScene(scene.id)
+     }
+
+     // let sceneId = shoots.data.relationships.scenes.data[0].id
  
      // let sceneId2 = shoots.data.relationsips.scenes.data[1].id
      
-     fetchNewScene(sceneId)
-     fetchSecondScene(sceneId + 1)
-     confirmedScenesBox.append(newAddressDiv)
+     // fetchNewScene(sceneId)
+     // fetchSecondScene(sceneId + 1)
+     
      }
 
 function fetchNewScene(sceneId){
@@ -228,13 +232,15 @@ function fetchNewScene(sceneId){
      })
 }
 
-function fetchSecondScene(sceneId)
-     fetch(scenesUrl + (sceneId +1))
-     .then(resp => resp.json())
-     .then(scene => {
-          console.log(scene)
-          renderScene2(scene)
-     })
+
+
+// function fetchSecondScene(sceneId)
+//      fetch(scenesUrl + (sceneId +1))
+//      .then(resp => resp.json())
+//      .then(scene => {
+//           console.log(scene)
+//           renderScene2(scene)
+//      })
 
 
 
