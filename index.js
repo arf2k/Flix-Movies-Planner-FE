@@ -38,9 +38,10 @@ const renderSetting = setting => {
 function onSettingClick(e){
      fetchAddressByType(e.target.dataset.id)
      renderAllAddress(e.target.dataset.id)
-     //try to grab the form . children and get the whole last row(careful not the button one)
-//      const textBox = query selector on row itself 
-//      textBox.dataset.settingId = e.target.dataset.id;
+     let lastRow = document.querySelector("#last-row")
+     let settingBox =  lastRow.previousElementSibling.lastElementChild.previousElementSibling
+     settingBox.dataset.settingId = e.target.dataset.id
+     settingBox.textContent = e.target.textContent
      addressesContainer.innerHTML = ""
 }
 
@@ -72,6 +73,8 @@ const addressesContainer = document.querySelector("#addresses-container")
 function renderAllAddress(addresses) {
      for(let address of addresses) {
           let addressImgCard = document.createElement('div')
+          addressImgCard.dataset.addressId = address.id
+          addressImgCard.addEventListener("click", onAddressClick)
           addressImgCard.innerHTML =`
           <div class="row-thumbnail">
              <div class="col-md-4"> 
@@ -95,9 +98,15 @@ function renderAllAddress(addresses) {
              </div>
          </div>
          `
+          
           addressesContainer.append(addressImgCard)
 
      }
+}
+
+function onAddressClick(){
+     console.log("click")
+
 }
 
 
@@ -130,53 +139,53 @@ const checkBoxForm = document.querySelector('#form-pick')
 //      renderChosenScenes(array) 
 // })
 
-const sceneNameBox = document.querySelector("#scene-name")
-const sceneContainerForm = document.querySelector('#add-scene')
-function renderChosenScenes(scene){
-     // const addUl = document.createElement('ul')
-     const newInput = scene
-    sceneNameBox.value = newInput
+// const sceneNameBox = document.querySelector("#scene-name")
+// const sceneContainerForm = document.querySelector('#add-scene')
+// function renderChosenScenes(scene){
+//      // const addUl = document.createElement('ul')
+//      const newInput = scene
+//     sceneNameBox.value = newInput
     
-     // sceneNameBox.value.append(input) 
-  }
+//      // sceneNameBox.value.append(input) 
+//   }
 
   
 const confirmedBox = document.querySelector("#confirmed-scenes")
 const shootForm = document.querySelector(".shoot-form")
 
-function clickHandler(){
-document.addEventListener('click', e => {
-     if(e.target.matches(".setting-button")) {
-     let settingId = e.target.dataset.id 
-     let settingBox = shootForm.setting
-     settingBox.value = e.target.textContent
-     shootForm.dataset.settingId = settingId 
+// function clickHandler(){
+// document.addEventListener('click', e => {
+     // if(e.target.matches(".setting-button")) {
+     // let settingId = e.target.dataset.id 
+     // let settingBox = shootForm.setting
+     // settingBox.value = e.target.textContent
+     // shootForm.dataset.settingId = settingId 
 
-} else if(e.target.matches(".address-button")){
-     let addressId = e.target.dataset.addressId 
-     let locationBox = shootForm.address
-     locationBox.value = e.target.textContent 
-     shootForm.dataset.addressId = addressId 
+// } else if(e.target.matches(".address-button")){
+//      let addressId = e.target.dataset.addressId 
+//      let locationBox = shootForm.address
+//      locationBox.value = e.target.textContent 
+//      shootForm.dataset.addressId = addressId 
 
     
-     } else if(e.target.textContent === "Select Scene"){
-          e.preventDefault()
-             checkBoxForm.children = e.target
-             console.log(e.target)
+//      } else if(e.target.textContent === "Select Scene"){
+//           e.preventDefault()
+//              checkBoxForm.children = e.target
+//              console.log(e.target)
                
 
-               // console.log(inputs)
-               // let array = [] 
-               // for (let i = 0; i <inputs.length; i++){
-               //      if(inputs[i].checked)
-               //      array.push(inputs[i].value)
-               // }  
-               // renderChosenScenes(array) 
-               // debugger
-     }  
-})
+//                // console.log(inputs)
+//                // let array = [] 
+//                // for (let i = 0; i <inputs.length; i++){
+//                //      if(inputs[i].checked)
+//                //      array.push(inputs[i].value)
+//                // }  
+//                // renderChosenScenes(array) 
+//                // debugger
+       
+// })
      
-}
+// }
 
 
 
@@ -244,14 +253,15 @@ const locationBox = document.querySelector("#add-location")
 const settingBox = document.querySelector("#add-setting")
 const shootTitleFormBox = document.querySelector("#title-of-scene")
 const shootDateFormBox = document.querySelector("#date-of-scene")
+let lastRow = document.querySelector("#last-row")
 
 function buildShootFromForm(form){
      
      let title = shootTitleFormBox.value 
      let date = shootDateFormBox.value
      
-     let sceneName = sceneNameBox.value 
-     let setting_id = document.querySelector(".shoot-form").dataset.settingId
+     let sceneName = lastRow.previousElementSibling.firstElementChild.value
+     let setting_id = lastRow.previousElementSibling.lastElementChild.previousElementSibling.dataset.settingId
      let location_id = document.querySelector('.address-button').dataset.addressId
      
      const scenesObj = {scenes: Scene.prepShoot}
@@ -331,6 +341,6 @@ getSettings()
 // getAllAddresses()
 fetchAddressByType()
 // fetchSingleLocation()
-clickHandler()
+// clickHandler()
 })
 

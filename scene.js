@@ -14,3 +14,4 @@ function addsceneToShoot(jsonScene){
      Scene.prepShoot.push(new Scene(jsonScene));
      return Scene.prepShoot;
 }
+
