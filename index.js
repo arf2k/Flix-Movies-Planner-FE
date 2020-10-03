@@ -230,9 +230,8 @@ function fetchNewScene(sceneId){
 
 function attachConfirm(){
      let attachConfirm = document.querySelector("#attach-confirm")
-     attachConfirm
      let confirmation = document.createElement('p')
-     confirmation.innerHTML = `<p margin: auto contenteditable="true"><h1>Confirmed Scenes</h1></p> `
+     confirmation.innerHTML = `<p margin: auto contenteditable="true"><h2>Confirmed Scenes</h2></p> `
     lastRow.append(confirmation)
 }
 
