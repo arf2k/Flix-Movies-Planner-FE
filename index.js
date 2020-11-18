@@ -30,7 +30,6 @@ const renderSetting = setting => {
      settingP.dataset.id = setting.id
      settingP.addEventListener('click', onSettingClick)
      settingsContainer.append(settingP)
-     // append settingImg once we have image container
 }
 
 
@@ -46,13 +45,7 @@ function onSettingClick(e){
 }
 
 
-// const getAllAddresses = () => {
-//      fetch(addressesUrl)
-//      .then(res => res.json())
-//      .then(data => {
-//           renderAllAddresses(data)
-//      })
-// }
+
 
 function fetchAddressByType(id){
      fetch(locationsSettingsUrl + id)
@@ -63,11 +56,7 @@ function fetchAddressByType(id){
 }
 
 
-// const renderAllAddresses = data => {
-//      for(let address of data) {
-//           renderAllAddress(address)
-//      }
-// }
+
 const addressesContainer = document.querySelector("#addresses-container")
 
 function renderAllAddress(addresses) {
@@ -154,24 +143,6 @@ document.addEventListener('click', e => {
 
 
 
-    
-//      } else if(e.target.textContent === "Select Scene"){
-//           e.preventDefault()
-//              checkBoxForm.children = e.target
-//              console.log(e.target)
-               
-
-//                // console.log(inputs)
-//                // let array = [] 
-//                // for (let i = 0; i <inputs.length; i++){
-//                //      if(inputs[i].checked)
-//                //      array.push(inputs[i].value)
-//                // }  
-//                // renderChosenScenes(array) 
-       
-// })
-     
-// }
 
 
 
@@ -316,9 +287,7 @@ addFormButton.addEventListener("click", e => {
           <input type="location" class="form-control" name="address-${row_index}" id="location-address-${row_index}" placeholder="Location Address">
      </div>
      `
-     //form.appendChild(divNewScene);
      form.insertBefore(divNewScene, lastDiv)
-     //createMoreScenesForm(e.target)
 
 })
 
@@ -356,9 +325,7 @@ const shootContainer = document.querySelector("#shoot-container")
 
 submitHandler()
 getSettings()
-// getAllAddresses()
 fetchAddressByType()
-// fetchSingleLocation()
 clickHandler()
 })
 
