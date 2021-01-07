@@ -15,8 +15,6 @@ document.addEventListener("DOMContentLoaded", (e) => {
   const shootDateFormBox = document.querySelector("#date-of-scene");
   const shootContainer = document.querySelector("#shoot-container");
 
-
-
   const getSettings = () => {
     fetch(settingsUrl)
       .then((res) => res.json())
@@ -91,19 +89,6 @@ document.addEventListener("DOMContentLoaded", (e) => {
     }
   };
 
-  // const checkBoxForm = document.querySelector('#form-pick')
-  // checkBoxForm.addEventListener('submit', e => {
-  //      e.preventDefault()
-
-  //      let inputs = checkBoxForm.children
-  //      inputs.checked.value
-
-  //      for (let i = 0; i <inputs.length; i++){
-  //           if(inputs[i].checked)
-  //           array.push(inputs[i].value)
-  //      }
-  //      renderChosenScenes(array)
-  // })
 
   const clickHandler = () => {
     document.addEventListener("click", (e) => {
@@ -168,15 +153,15 @@ document.addEventListener("DOMContentLoaded", (e) => {
     attachConfirm();
   };
 
-  const fetchNewScene = sceneId => {
+  const fetchNewScene = (sceneId) => {
     fetch(scenesUrl + sceneId)
       .then((resp) => resp.json())
       .then((scene) => {
         renderScene(scene);
       });
-  }
+  };
 
-  const renderScene = scene => {
+  const renderScene = (scene) => {
     let newSceneDiv = document.createElement("div");
     newSceneDiv.classList.add("confirmed-scenes-scene-container");
     newSceneDiv.innerHTML = `
@@ -188,11 +173,11 @@ document.addEventListener("DOMContentLoaded", (e) => {
      `;
 
     confirmedScenesBox.append(newSceneDiv);
-  }
+  };
 
   let lastRow = document.querySelector("#last-row");
 
-     const  buildShootFromForm = form => {
+  const buildShootFromForm = (form) => {
     let title = shootTitleFormBox.value;
     let date = shootDateFormBox.value;
 
@@ -216,7 +201,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
     };
 
     return shootObj;
-  }
+  };
 
   const addFormButton = document.querySelector("#add-scenes-button");
   let row_index = 0;
@@ -241,7 +226,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
     form.insertBefore(divNewScene, lastDiv);
   });
 
- const createMoreScenesForm = () => {
+  const createMoreScenesForm = () => {
     let newFormFieldsInput = document.createElement("form");
     newFormFieldsInput.innerHTML = `
      <form>
@@ -264,8 +249,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
         </form>
         `;
     shootContainer.append(newFormFieldsInput);
-  }
-
+  };
 
   submitHandler();
   getSettings();
